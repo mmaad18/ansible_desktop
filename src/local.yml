@@ -23,11 +23,11 @@
   - name: set wallpaper
     become_user: yahya
     dconf:
-      key: /org/gnome/desktop/background/picture-uri
-      value: 'file:///usr/share/backgrounds/wallpaper.png'
+      key: "/org/gnome/desktop/background/picture-uri"
+      value: "'file:///usr/share/backgrounds/wallpaper.png'"
 
   - name: set wallpaper position
     become_user: yahya
     dconf:
-      key: /org/gnome/desktop/background/picture-options
-      value: 'centered'
+      key: "/org/gnome/desktop/background/picture-options"
+      value: "'centered'"
