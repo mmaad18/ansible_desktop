@@ -15,7 +15,7 @@
 
   - name: copy wallpaper file
     copy:
-      src: Pictures/wallpaper.png
+      src: /home/yahya/Pictures/wallpaper.png
       dest: /usr/share/backgrounds/wallpaper.png
       owner: root
       group: root
