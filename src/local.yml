@@ -15,7 +15,7 @@
 
   - name: copy wallpaper file
     copy:
-      src: files/terraform.png
+      src: /files/terraform.png
       dest: /usr/share/backgrounds/wallpaper.png
       owner: root
       group: root
