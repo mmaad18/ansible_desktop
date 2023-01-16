@@ -34,7 +34,7 @@
 
   - name: copy .bashrc file
     copy:
-      src: /home/yahya/ansible_desktopfiles/.bashrc
+      src: /home/yahya/ansible_desktop/files/.bashrc
       dest: /home/yahya/.bashrc
       owner: yahya
       group: yahya
@@ -46,7 +46,7 @@
 
   - name: add ansible user to sudoers
     copy:
-      src: /home/yahya/ansible_desktopfiles/sudoer_puller
+      src: /home/yahya/ansible_desktop/files/sudoer_puller
       dest: /etc/sudoers.d/puller
       owner: root
       group: root
