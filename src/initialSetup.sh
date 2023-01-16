@@ -5,5 +5,8 @@ sudo apt install git -y
 sudo apt install curl -y
 sudo apt install ansible -y
 
-curl https://raw.githubusercontent.com/mmaad18/ansible_desktop/main/src/terraform.png > Pictures/wallpaper.png
+git clone https://github.com/mmaad18/ansible_desktop.git
+cd ansible_desktop || exit
+
+sudo ansible-pull -U https://github.com/mmaad18/ansible_desktop.git src/local.yml
 

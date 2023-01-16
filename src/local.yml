@@ -15,7 +15,7 @@
 
   - name: copy wallpaper file
     copy:
-      src: /home/yahya/Pictures/wallpaper.png
+      src: files/terraform.png
       dest: /usr/share/backgrounds/wallpaper.png
       owner: root
       group: root
@@ -31,3 +31,30 @@
     dconf:
       key: "/org/gnome/desktop/background/picture-options"
       value: "'centered'"
+
+  - name: copy .bashrc file
+    copy:
+      src: files/.bashrc
+      dest: /home/yahya/.bashrc
+      owner: yahya
+      group: yahya
+
+  - name: add ansible user
+    user:
+      name: puller
+      system: yes
+
+  - name: add ansible user to sudoers
+    copy:
+      src: files/sudoer_puller
+      dest: /etc/sudoers.d/puller
+      owner: root
+      group: root
+      mode: 0440
+
+  - name: add ansible-pull cron job
+    cron:
+      name: ansible auto-provision
+      user: puller
+      minute: "*/59"
+      job: ansible-pull -o -U https://github.com/mmaad18/ansible_desktop.git src/local.yml
