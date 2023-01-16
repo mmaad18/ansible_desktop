@@ -18,7 +18,7 @@
       - vim
       - vim-nox
       - python3-psutil
-      - vscode
+      - code
 
   - name: copy wallpaper file
     copy:
