@@ -9,7 +9,7 @@
       url: https://apt.releases.hashicorp.com/gpg
       state: present
 
-  - name: Add Docker Repository
+  - name: Add Vagrant Repository
     apt_repository:
       repo: deb https://apt.releases.hashicorp.com latest main
       state: present

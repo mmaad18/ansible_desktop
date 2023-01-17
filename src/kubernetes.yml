@@ -15,7 +15,7 @@
       state: present
       filename: kubernetes.list
 
-  - name: Install Kubernetes binaries
+  - name: Update apt and install Kubernetes binaries
     apt:
       name:
       - kubelet
