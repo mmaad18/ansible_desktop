@@ -11,7 +11,7 @@
 
   - name: Add Vagrant Repository
     apt_repository:
-      repo: deb https://apt.releases.hashicorp.com $(lsb_release -cs) main
+      repo: deb https://apt.releases.hashicorp.com main
       state: present
       filename: hashicorp.list
 
