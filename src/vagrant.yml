@@ -13,7 +13,7 @@
     apt_repository:
       repo: deb https://apt.releases.hashicorp.com 2.3.4 main
       state: present
-      filename: hashicorp.list
+      filename: hashicorp
 
   - name: Update apt and install vagrant
     apt:
