@@ -1,5 +1,7 @@
 
-IMAGE_NAME = "bento/ubuntu-22.04"
+# Create correct image name for VirtualBox 32-bit with ubuntu 22.04
+
+IMAGE_NAME = "ubuntu/jammy32"
 N = 2
 
 Vagrant.configure("2") do |config|
