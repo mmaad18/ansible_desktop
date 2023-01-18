@@ -29,6 +29,13 @@
       state: present
       update_cache: true
 
+  - name: Install Oracle Virtualbox
+    apt:
+      name:
+      - gnupg-agent
+      - software-properties-common
+      state: present
+      update_cache: true
 
   - name: Configure node ip
     lineinfile:
