@@ -12,6 +12,7 @@
       - vim
       - vim-nox
       - python3-psutil
+      - virtualbox
 
   - name: copy wallpaper file
     copy:
