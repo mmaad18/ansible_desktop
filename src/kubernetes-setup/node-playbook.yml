@@ -1,8 +1,8 @@
 ---
-- hosts: localhost
+- hosts: all
   become: true
 
-  # Setup playbook for worker nodes.
+  # Setup playbook for the master node.
 
   tasks:
 
@@ -22,7 +22,10 @@
         - curl
         - gnupg-agent
         - software-properties-common
-      state: present
+        - python3-pip
+        - virtualenv
+        - python3-setuptools
+      state: latest
       update_cache: true
 
   - name: Add Docker GPG apt Key
@@ -41,7 +44,7 @@
         - docker-ce
         - docker-ce-cli
         - containerd.io
-      state: present
+      state: latest
       update_cache: true
     notify:
       - docker status
@@ -85,14 +88,6 @@
         - kubelet
         - kubeadm
         - kubectl
-      state: present
-      update_cache: true
-
-  - name: Install Oracle Virtualbox
-    apt:
-      name:
-        - gnupg-agent
-        - software-properties-common
       state: present
       update_cache: true
 
