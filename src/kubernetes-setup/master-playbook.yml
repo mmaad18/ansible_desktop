@@ -16,7 +16,7 @@
 
   - name: Install required system packages
     apt:
-      pkg:
+      name:
       - apt-transport-https
       - ca-certificates
       - curl
