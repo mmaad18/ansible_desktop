@@ -1,13 +1,72 @@
 ---
 - hosts: localhost
-  connection: local
   become: true
 
+  # Setup playbook for the master node.
+
   tasks:
+
+  # Install Docker
+
+  - name: Install aptitude
+    apt:
+      name: aptitude
+      state: latest
+      update_cache: true
+
+  - name: Install required system packages
+    apt:
+      pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+      state: present
+      update_cache: true
+
+  - name: Add Docker GPG apt Key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Add Docker Repository
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu jammy stable
+      state: present
+
+  - name: Update apt and install docker tools
+    apt:
+      name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      state: present
+      update_cache: true
+    notify:
+    - docker status
+
   - name: Add vagrant user to docker group
     user:
       name: vagrant
       group: docker
+
+  # Remove swap
+
+  - name: Remove swapfile from /etc/fstab
+    mount:
+      name: "{{ item }}"
+      fstype: swap
+      state: absent
+    with_items:
+      - swap
+      - none
+
+  - name: Disable swap
+    command: swapoff -a
+    when: ansible_swaptotal_mb > 0
+
+  # Install kubernetes tools
 
   - name: Add an apt signing key for Kubernetes
     apt_key:
@@ -48,8 +107,12 @@
       daemon_reload: true
       state: restarted
 
+  # Initialize Kubernetes cluster with kubeadm
+
   - name: Initialize the Kubernetes cluster using kubeadm
     command: kubeadm init --apiserver-advertise-address="192.168.50.10" --apiserver-cert-extra-sans="192.168.50.10"  --node-name k8s-master --pod-network-cidr=192.168.0.0/16
+
+  # Setup kube config file for vagrant user
 
   - name: Setup kubeconfig for vagrant user
     command: "{{ item }}"
@@ -58,9 +121,13 @@
     - cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
     - chown vagrant:vagrant /home/vagrant/.kube/config
 
+  # Setup container networking provider (Calico)
+
   - name: Install calico pod network
     become: false
     command: kubectl create -f https://docs.projectcalico.org/v3.25/getting-started/kubernetes/installation/hosted/calico.yaml
+
+  # Generate join command for worker nodes to join the cluster
 
   - name: Generate join command
     command: kubeadm token create --print-join-command
@@ -68,6 +135,8 @@
 
   - name: Copy join command to local file
     local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
+
+  # Setup a handler for checking docker daemon status
 
   handlers:
     - name: docker status
