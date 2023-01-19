@@ -110,7 +110,7 @@
 
   - name: Delete config.toml
     file:
-      path: /etc/kubeadm/config.toml
+      path: /etc/containerd/config.toml
       state: absent
 
   - name: Restart containerd
