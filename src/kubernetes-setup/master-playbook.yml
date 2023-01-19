@@ -134,7 +134,8 @@
 
   - name: Install calico pod network
     become: false
-    command: kubectl create -f https://docs.projectcalico.org/v3.25/getting-started/kubernetes/installation/hosted/calico.yaml
+    #command: kubectl create -f https://docs.projectcalico.org/v3.25/getting-started/kubernetes/installation/hosted/calico.yaml
+    command: kubectl create -f https://docs.projectcalico.org/v3.4/getting-started/kubernetes/installation/hosted/calico.yaml
 
   # Generate join command for worker nodes to join the cluster
 
