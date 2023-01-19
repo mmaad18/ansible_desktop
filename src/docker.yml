@@ -39,9 +39,13 @@
       repo: deb https://download.docker.com/linux/ubuntu jammy stable
       state: present
 
-  - name: Update apt and install docker-ce
+  - name: Update apt and install docker packages
     apt:
-      name: docker-ce
+      name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin
       state: latest
       update_cache: true
 
