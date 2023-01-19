@@ -27,6 +27,7 @@
         - python3-setuptools
         - gnupg
         - lsb-release
+        - firewalld
       state: latest
       update_cache: true
 
