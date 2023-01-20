@@ -5,3 +5,13 @@
 
 - name: Execute swapOff
   import_playbook: swapOff.yml
+
+- name: Execute docker
+  import_playbook: docker.yml
+
+- name: Execute kubernetes
+  import_playbook: kubernetes.yml
+
+- name: Execute vagrant
+  import_playbook: vagrant.yml
+

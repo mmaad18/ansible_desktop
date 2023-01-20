@@ -7,7 +7,7 @@
 ### Run ansible
 This should be called from `initialSetup.sh`, but can be run manually:
 
-    sudo ansible-pull -U https://github.com/mmaad18/ansible_desktop.git src/local.yml
+    sudo ansible-pull -U https://github.com/mmaad18/ansible_desktop.git src/main.yml
 
 
 

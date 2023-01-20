@@ -8,5 +8,5 @@ sudo apt install ansible -y
 git clone https://github.com/mmaad18/ansible_desktop.git
 cd ansible_desktop || exit
 
-sudo ansible-pull -U https://github.com/mmaad18/ansible_desktop.git src/local.yml
+sudo ansible-pull -U https://github.com/mmaad18/ansible_desktop.git src/main.yml
 
