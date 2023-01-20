@@ -1,5 +1,4 @@
 ---
-- hosts: localhost
 
 - name: Execute local
   import_playbook: local.yml

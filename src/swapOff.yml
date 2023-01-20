@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
-#  connection: local
-#  become: true
+  connection: local
+  become: true
 
   tasks:
   - name: Remove swapfile from /etc/fstab
