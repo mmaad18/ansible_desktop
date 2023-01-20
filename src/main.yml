@@ -2,15 +2,3 @@
 
 - include: local.yml
 - include: swapOff.yml
-
-- include_tasks:
-    file: src/local.yml
-    apply:
-      tags: local
-  tags: local
-
-- include_tasks:
-    file: src/swapOff.yml
-    apply:
-      tags: swapOff
-  tags: swapOff
