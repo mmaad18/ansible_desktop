@@ -3,6 +3,7 @@
 #  connection: local
 #  become: true
 
+  tasks:
   - name: install base packages
     apt:
       name:
