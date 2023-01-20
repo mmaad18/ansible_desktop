@@ -1,10 +1,10 @@
 ---
 
 - include_tasks:
-    file: preflight.yml
+    file: "{{ item }}"
     apply:
       tags: preflight
-  tags: preflight
+  tags: components
   with_items:
     - src/local.yml
     - src/swapOff.yml
