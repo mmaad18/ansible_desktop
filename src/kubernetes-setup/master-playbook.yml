@@ -28,6 +28,7 @@
       - gnupg
       - lsb-release
       - firewalld
+      - net-tools
       state: latest
       update_cache: true
 
@@ -131,20 +132,29 @@
     - cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
     - chown vagrant:vagrant /home/vagrant/.kube/config
 
-  # Open firewall port 6443
+  # Open firewall port 6443, 8080
+
   - name: Open firewall port 6443
     firewalld:
-      port: 6443/tcp
+      port:
+      - 6443/tcp
+      - 8080/tcp
       permanent: true
       state: enabled
       immediate: true
+
+  # Configure /etc/hosts file
+  - name: Configure /etc/hosts file
+    lineinfile:
+      path: /etc/hosts
+      line: 192.168.56.10 k8s-master k8s-master
+      create: true
 
   # Setup container networking provider (Calico)
 
   - name: Install calico pod network
     become: false
-    #command: kubectl create -f https://docs.projectcalico.org/v3.25/getting-started/kubernetes/installation/hosted/calico.yaml
-    command: kubectl create -f https://docs.projectcalico.org/v3.4/getting-started/kubernetes/installation/hosted/calico.yaml
+    command: kubectl create -f https://docs.projectcalico.org/v3.14/getting-started/kubernetes/installation/hosted/calico.yaml
 
   # Generate join command for worker nodes to join the cluster
 

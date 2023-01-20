@@ -13,6 +13,8 @@
       - vim-nox
       - python3-psutil
       - virtualbox
+      - firewalld
+      - net-tools
 
   - name: copy wallpaper file
     copy:
