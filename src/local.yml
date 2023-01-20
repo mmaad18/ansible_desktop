@@ -3,61 +3,61 @@
 #  connection: local
 #  become: true
 
-  - name: install base packages
-    apt:
-      name:
-      - htop
-      - tmux
-      - vim
-      - vim-nox
-      - python3-psutil
-      - virtualbox
-      - firewalld
-      - net-tools
+- name: install base packages
+  apt:
+    name:
+    - htop
+    - tmux
+    - vim
+    - vim-nox
+    - python3-psutil
+    - virtualbox
+    - firewalld
+    - net-tools
 
-  - name: copy wallpaper file
-    copy:
-      src: /home/yahya/ansible_desktop/files/terraform.png
-      dest: /usr/share/backgrounds/wallpaper.png
-      owner: root
-      group: root
+- name: copy wallpaper file
+  copy:
+    src: /home/yahya/ansible_desktop/files/terraform.png
+    dest: /usr/share/backgrounds/wallpaper.png
+    owner: root
+    group: root
 
-  - name: set wallpaper
-    become_user: yahya
-    dconf:
-      key: "/org/gnome/desktop/background/picture-uri"
-      value: "'file:///usr/share/backgrounds/wallpaper.png'"
+- name: set wallpaper
+  become_user: yahya
+  dconf:
+    key: "/org/gnome/desktop/background/picture-uri"
+    value: "'file:///usr/share/backgrounds/wallpaper.png'"
 
-  - name: set wallpaper position
-    become_user: yahya
-    dconf:
-      key: "/org/gnome/desktop/background/picture-options"
-      value: "'centered'"
+- name: set wallpaper position
+  become_user: yahya
+  dconf:
+    key: "/org/gnome/desktop/background/picture-options"
+    value: "'centered'"
 
-  - name: copy .bashrc file
-    copy:
-      src: /home/yahya/ansible_desktop/files/.bashrc
-      dest: /home/yahya/.bashrc
-      owner: yahya
-      group: yahya
+- name: copy .bashrc file
+  copy:
+    src: /home/yahya/ansible_desktop/files/.bashrc
+    dest: /home/yahya/.bashrc
+    owner: yahya
+    group: yahya
 
-  - name: add ansible user
-    user:
-      name: puller
-      system: yes
+- name: add ansible user
+  user:
+    name: puller
+    system: yes
 
-  - name: add ansible user to sudoers
-    copy:
-      src: /home/yahya/ansible_desktop/files/sudoer_puller
-      dest: /etc/sudoers.d/puller
-      owner: root
-      group: root
-      mode: 0440
+- name: add ansible user to sudoers
+  copy:
+    src: /home/yahya/ansible_desktop/files/sudoer_puller
+    dest: /etc/sudoers.d/puller
+    owner: root
+    group: root
+    mode: 0440
 
-  - name: add ansible-pull cron job
-    cron:
-      name: ansible auto-provision
-      user: puller
-      minute: "*/59"
-      job: ansible-pull -o -U https://github.com/mmaad18/ansible_desktop.git src/local.yml
+- name: add ansible-pull cron job
+  cron:
+    name: ansible auto-provision
+    user: puller
+    minute: "*/59"
+    job: ansible-pull -o -U https://github.com/mmaad18/ansible_desktop.git src/local.yml
 
