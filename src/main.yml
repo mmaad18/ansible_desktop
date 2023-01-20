@@ -4,13 +4,13 @@
 - include: swapOff.yml
 
 - include_tasks:
-    file: "{{ item }}"
+    file: src/local.yml
     apply:
-      tags: preflight
-  tags: components
-  with_items:
-    - src/local.yml
-    - src/swapOff.yml
-    #- src/vagrant.yml
-    #- src/docker.yml
-    #- src/kubernetes.yml
+      tags: local
+  tags: local
+
+- include_tasks:
+    file: src/swapOff.yml
+    apply:
+      tags: swapOff
+  tags: swapOff
