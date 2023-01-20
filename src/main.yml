@@ -1,4 +1,7 @@
 ---
 
-- include_tasks: local.yml
-- include_tasks: swapOff.yml
+  - name: Execute local
+    include: local.yml
+
+  - name: Execute swapOff
+    include: swapOff.yml
