@@ -8,6 +8,6 @@
   with_items:
     - src/local.yml
     - src/swapOff.yml
-    - src/vagrant.yml
-    - src/docker.yml
-    - src/kubernetes.yml
+    #- src/vagrant.yml
+    #- src/docker.yml
+    #- src/kubernetes.yml
