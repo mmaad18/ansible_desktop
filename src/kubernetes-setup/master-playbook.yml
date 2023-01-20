@@ -140,9 +140,9 @@
       permanent: true
       state: enabled
       immediate: true
-      with_items:
-      - 6443/tcp
-      - 8080/tcp
+    with_items:
+    - 6443/tcp
+    - 8080/tcp
 
   # Configure /etc/hosts file
   - name: Configure /etc/hosts file
