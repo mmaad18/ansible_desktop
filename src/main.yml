@@ -1,5 +1,8 @@
 ---
 
+- include: local.yml
+- include: swapOff.yml
+
 - include_tasks:
     file: "{{ item }}"
     apply:
