@@ -1,7 +1,8 @@
 ---
+- hosts: localhost
 
-  - name: Execute local
-    import_playbook: local.yml
+- name: Execute local
+  import_playbook: local.yml
 
-  - name: Execute swapOff
-    import_playbook: swapOff.yml
+- name: Execute swapOff
+  import_playbook: swapOff.yml
