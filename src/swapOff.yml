@@ -1,9 +1,8 @@
 ---
-#- hosts: localhost
-#  connection: local
-#  become: true
+- hosts: localhost
+  connection: local
+  become: true
 
-- block:
   tasks:
   - name: Remove swapfile from /etc/fstab
     mount:

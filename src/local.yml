@@ -1,10 +1,9 @@
 ---
-#- hosts: localhost
-#  connection: local
-#  become: true
+- hosts: localhost
+  connection: local
+  become: true
 
-#  tasks:
-- block:
+  tasks:
   - name: install base packages
     apt:
       name:
