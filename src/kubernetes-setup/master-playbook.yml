@@ -32,6 +32,15 @@
       state: latest
       update_cache: true
 
+  # Open firewall ports 6443, 8080, 10250
+
+  - name: Open firewall ports 6443, 8080, 10250
+    firewalld:
+      port: 6443/tcp
+      permanent: true
+      immediate: true
+      state: enabled
+
   - name: Add Docker GPG apt Key
     apt_key:
       url: https://download.docker.com/linux/ubuntu/gpg
@@ -132,7 +141,7 @@
     - cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
     - chown vagrant:vagrant /home/vagrant/.kube/config
 
-  # Open firewall ports
+  # Open firewall ports 6443, 8080, 10250
 
   - name: Open firewall ports
     firewalld:

@@ -1,0 +1,13 @@
+---
+
+- include_tasks:
+    file: preflight.yml
+    apply:
+      tags: preflight
+  tags: preflight
+  with_items:
+    - src/local.yml
+    - src/swapOff.yml
+    - src/vagrant.yml
+    - src/docker.yml
+    - src/kubernetes.yml
