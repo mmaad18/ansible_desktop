@@ -67,8 +67,8 @@
       fstype: swap
       state: absent
     with_items:
-      - swap
-      - none
+    - swap
+    - none
 
   - name: Disable swap
     command: swapoff -a
@@ -136,13 +136,10 @@
 
   - name: Open firewall ports
     firewalld:
-      port: "{{ item }}"
+      port: 6443/tcp
       permanent: true
       immediate: true
       state: enabled
-    with_items:
-      - 6443/tcp
-      - 8080/tcp
 
   # Configure /etc/hosts file
   - name: Configure /etc/hosts file
