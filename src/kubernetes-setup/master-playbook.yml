@@ -132,16 +132,17 @@
     - cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
     - chown vagrant:vagrant /home/vagrant/.kube/config
 
-  # Open firewall port 6443, 8080
+  # Open firewall ports
 
-  - name: Open firewall port 6443
+  - name: Open firewall ports
     firewalld:
-      port:
-      - 6443/tcp
-      - 8080/tcp
+      port: "{{ ports }}"
       permanent: true
       state: enabled
       immediate: true
+      with_ports:
+      - 6443/tcp
+      - 8080/tcp
 
   # Configure /etc/hosts file
   - name: Configure /etc/hosts file
