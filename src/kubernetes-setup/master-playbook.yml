@@ -136,11 +136,11 @@
 
   - name: Open firewall ports
     firewalld:
-      port: "{{ ports }}"
+      port: "{{ item }}"
       permanent: true
       state: enabled
       immediate: true
-      with_ports:
+      with_items:
       - 6443/tcp
       - 8080/tcp
 
