@@ -45,7 +45,7 @@
   - name: add ansible user
     user:
       name: puller
-      system: yes
+      system: true
 
   - name: add ansible user to sudoers
     copy:
