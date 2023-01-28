@@ -9,6 +9,13 @@ This should be called from `initialSetup.sh`, but can be run manually:
 
     sudo ansible-pull -U https://github.com/mmaad18/ansible_desktop.git src/main.yml
 
+### Error messages
+
+**Delete all lists in `/etc/apt/sources.list.d/`**
+
+    Failed to update apt cache: unknown reason
+
+
 
 
 
