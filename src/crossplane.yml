@@ -3,11 +3,6 @@
   connection: local
   become: true
 
-  vars:
-    crossplane_version: 0.15.0
-    crossplane_arch: linux
-    crossplane_url: https://github.com/crossplane/crossplane/releases/download/v{{ crossplane_version }}/crossplane-{{ crossplane_version }}-{{ crossplane_arch }}.tar.gz
-
   tasks:
     - name: Install dependencies
       apt:

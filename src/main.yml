@@ -6,6 +6,9 @@
 - name: Execute swapOff
   import_playbook: swapOff.yml
 
+- name: Execute helm
+  import_playbook: helm.yml
+
 - name: Execute docker
   import_playbook: docker.yml
 
