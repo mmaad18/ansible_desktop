@@ -40,5 +40,3 @@
         dest: /usr/local/bin/kind
         mode: 0755
 
-    - name: Create kind cluster
-      command: kind create cluster --config kind-config.yaml
