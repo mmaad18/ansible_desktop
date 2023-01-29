@@ -6,113 +6,113 @@
 
   tasks:
 
-  # Install Docker
+    # Install Docker
 
-  - name: Install aptitude
-    apt:
-      name: aptitude
-      state: latest
-      update_cache: true
+    - name: Install aptitude
+      apt:
+        name: aptitude
+        state: latest
+        update_cache: true
 
-  - name: Install required system packages
-    apt:
-      name:
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - gnupg-agent
-      - software-properties-common
-      - python3-pip
-      - virtualenv
-      - python3-setuptools
-      - gnupg
-      - lsb-release
-      - firewalld
-      - net-tools
-      state: latest
-      update_cache: true
+    - name: Install required system packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg-agent
+          - software-properties-common
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+          - gnupg
+          - lsb-release
+          - firewalld
+          - net-tools
+        state: latest
+        update_cache: true
 
-  - name: Add Docker GPG apt Key
-    apt_key:
-      url: https://download.docker.com/linux/ubuntu/gpg
-      state: present
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
 
-  - name: Add Docker Repository
-    apt_repository:
-      repo: deb https://download.docker.com/linux/ubuntu jammy stable
-      state: present
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu jammy stable
+        state: present
 
-  - name: Update apt and install docker tools
-    apt:
-      name:
-        - docker-ce
-        - docker-ce-cli
-        - containerd.io
-        - docker-compose-plugin
-      state: latest
-      update_cache: true
-    notify:
-      - docker status
+    - name: Update apt and install docker tools
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose-plugin
+        state: latest
+        update_cache: true
+      notify:
+        - docker status
 
-  - name: Add vagrant user to docker group
-    user:
-      name: vagrant
-      group: docker
+    - name: Add vagrant user to docker group
+      user:
+        name: vagrant
+        group: docker
 
-  # Remove swap
+    # Remove swap
 
-  - name: Remove swapfile from /etc/fstab
-    mount:
-      name: "{{ item }}"
-      fstype: swap
-      state: absent
-    with_items:
-      - swap
-      - none
+    - name: Remove swapfile from /etc/fstab
+      mount:
+        name: "{{ item }}"
+        fstype: swap
+        state: absent
+      with_items:
+        - swap
+        - none
 
-  - name: Disable swap
-    command: swapoff -a
-    when: ansible_swaptotal_mb > 0
+    - name: Disable swap
+      command: swapoff -a
+      when: ansible_swaptotal_mb > 0
 
-  # Install kubernetes tools
+    # Install kubernetes tools
 
-  - name: Add an apt signing key for Kubernetes
-    apt_key:
-      url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-      state: present
+    - name: Add an apt signing key for Kubernetes
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
 
-  - name: Adding apt repository for Kubernetes
-    apt_repository:
-      repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
-      state: present
-      filename: kubernetes
+    - name: Adding apt repository for Kubernetes
+      apt_repository:
+        repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+        state: present
+        filename: kubernetes
 
-  - name: Update apt and install Kubernetes binaries
-    apt:
-      name:
-        - kubelet
-        - kubeadm
-        - kubectl
-      state: present
-      update_cache: true
+    - name: Update apt and install Kubernetes binaries
+      apt:
+        name:
+          - kubelet
+          - kubeadm
+          - kubectl
+        state: present
+        update_cache: true
 
-  - name: Configure node ip
-    lineinfile:
-      path: /etc/default/kubelet
-      line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
-      create: true
+    - name: Configure node ip
+      lineinfile:
+        path: /etc/default/kubelet
+        line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
+        create: true
 
-  - name: Restart kubelet
-    service:
-      name: kubelet
-      daemon_reload: true
-      state: restarted
+    - name: Restart kubelet
+      service:
+        name: kubelet
+        daemon_reload: true
+        state: restarted
 
-  - name: Copy the join command to server location
-    copy: src=join-command dest=/tmp/join-command.sh mode=0777
+    - name: Copy the join command to server location
+      copy: src=join-command dest=/tmp/join-command.sh mode=0777
 
-  - name: Join the node to cluster
-    command: sh /tmp/join-command.sh
+    - name: Join the node to cluster
+      command: sh /tmp/join-command.sh
 
   handlers:
     - name: docker status

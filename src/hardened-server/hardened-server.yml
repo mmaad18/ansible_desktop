@@ -3,119 +3,119 @@
   become: true
 
   tasks:
-  - name: install base packages
-    apt:
-      name:
-      - htop
-      - tmux
-      - vim
-      - vim-nox
-      - python3-psutil
-      - virtualbox
-      - firewalld
-      - net-tools
+    - name: install base packages
+      apt:
+        name:
+          - htop
+          - tmux
+          - vim
+          - vim-nox
+          - python3-psutil
+          - virtualbox
+          - firewalld
+          - net-tools
 
-  - name: Add ssh public key to authorized_keys
-    authorized_key:
-      user: root
-      key: "{{ lookup('file', 'path/to/public_key.pub') }}"
+    - name: Add ssh public key to authorized_keys
+      authorized_key:
+        user: root
+        key: "{{ lookup('file', 'path/to/public_key.pub') }}"
 
-  - name: Add Crowdsec GPG apt Key
-    apt_key:
-      url: https://packagecloud.io/crowdsec/crowdsec/gpgkey
-      state: present
+    - name: Add Crowdsec GPG apt Key
+      apt_key:
+        url: https://packagecloud.io/crowdsec/crowdsec/gpgkey
+        state: present
 
-  - name: Adding apt repository for Crowdsec
-    apt_repository:
-      repo: deb https://packagecloud.io/crowdsec/crowdsec/ubuntu/ focal main
-      state: present
-      filename: crowdsec
+    - name: Adding apt repository for Crowdsec
+      apt_repository:
+        repo: deb https://packagecloud.io/crowdsec/crowdsec/ubuntu/ focal main
+        state: present
+        filename: crowdsec
 
-  - name: Update apt and install Crowdsec
-    apt:
-      name:
-        - crowdsec
-      state: present
-      update_cache: true
+    - name: Update apt and install Crowdsec
+      apt:
+        name:
+          - crowdsec
+        state: present
+        update_cache: true
 
-  - name: Install Firewall Bouncer
-    apt:
-      name: crowdsec-firewall-bouncer-iptables
-      state: present
+    - name: Install Firewall Bouncer
+      apt:
+        name: crowdsec-firewall-bouncer-iptables
+        state: present
 
-  - name: Install Google-Authenticator PAM Module
-    apt:
-      name: libpam-google-authenticator
-      state: present
-    become: true
-    register: google_auth
+    - name: Install Google-Authenticator PAM Module
+      apt:
+        name: libpam-google-authenticator
+        state: present
+      become: true
+      register: google_auth
 
-  - name: Configure google-authenticator
-    command: google-authenticator
-    when: google_auth.changed
+    - name: Configure google-authenticator
+      command: google-authenticator
+      when: google_auth.changed
 
-  - name: PAM Configuration
-    become: true
-    copy:
-      src: /etc/pam.d/sshd
-      dest: /etc/pam.d/sshd.bak
-    lineinfile:
-      path: /etc/pam.d/sshd
-      regexp: '^@include common-auth'
-      state: absent
-    lineinfile:
-      path: /etc/pam.d/sshd
-      line: 'auth required pam_google_authenticator.so'
-      state: present
-    lineinfile:
-      path: /etc/pam.d/sshd
-      line: 'auth required pam_permit.so'
-      state: present
+    - name: PAM Configuration
+      become: true
+      copy:
+        src: /etc/pam.d/sshd
+        dest: /etc/pam.d/sshd.bak
+      lineinfile:
+        path: /etc/pam.d/sshd
+        regexp: '^@include common-auth'
+        state: absent
+      lineinfile:
+        path: /etc/pam.d/sshd
+        line: 'auth required pam_google_authenticator.so'
+        state: present
+      lineinfile:
+        path: /etc/pam.d/sshd
+        line: 'auth required pam_permit.so'
+        state: present
 
-  - name: Edit ssh configuration
-    become: true
-    copy:
-      src: /etc/ssh/sshd_config
-      dest: /etc/ssh/sshd_config.bak
-    lineinfile:
-      path: /etc/ssh/sshd_config
-      regexp: '^ChallengeResponseAuthentication'
-      line: 'ChallengeResponseAuthentication yes'
-    lineinfile:
-      path: /etc/ssh/sshd_config
-      line: 'AuthenticationMethods publickey,keyboard-interactive'
-      state: present
-    lineinfile:
-      path: /etc/ssh/sshd_config
-      line: 'PasswordAuthentication no'
-      state: present
-      - name: Restart SSH Server
-        service:
-          name: ssh
-          state: restarted
+    - name: Edit ssh configuration
+      become: true
+      copy:
+        src: /etc/ssh/sshd_config
+        dest: /etc/ssh/sshd_config.bak
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^ChallengeResponseAuthentication'
+        line: 'ChallengeResponseAuthentication yes'
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        line: 'AuthenticationMethods publickey,keyboard-interactive'
+        state: present
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        line: 'PasswordAuthentication no'
+        state: present
+          - name: Restart SSH Server
+            service:
+              name: ssh
+              state: restarted
 
-  - name: Restart SSH Server
-    service:
-      name: ssh
-      state: restarted
+    - name: Restart SSH Server
+      service:
+        name: ssh
+        state: restarted
 
-  - name: Check SSH Server Status
-    command: systemctl status ssh.service
-    register: ssh_status
+    - name: Check SSH Server Status
+      command: systemctl status ssh.service
+      register: ssh_status
 
-  - name: Check SSH Server Status
-    command: systemctl status sshd.service
-    register: ssh_status
+    - name: Check SSH Server Status
+      command: systemctl status sshd.service
+      register: ssh_status
 
-  - name: Transfer Resources
-    become: true
-    synchronize:
-    src: "{{ directory_to_transfer }}"
-    dest: "{{ path }}"
-    remote_user: "{{ username }}"
-    private_key: "{{ ssh_private_key }}"
-    remote_path: scp
-    rsync_opts:
-      - "-avz"
+    - name: Transfer Resources
+      become: true
+      synchronize:
+      src: "{{ directory_to_transfer }}"
+      dest: "{{ path }}"
+      remote_user: "{{ username }}"
+      private_key: "{{ ssh_private_key }}"
+      remote_path: scp
+      rsync_opts:
+        - "-avz"
 
 

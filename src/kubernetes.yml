@@ -4,28 +4,28 @@
   become: true
 
   tasks:
-  - name: Add an apt signing key for Kubernetes
-    apt_key:
-      url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-      state: present
+    - name: Add an apt signing key for Kubernetes
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
 
-  - name: Adding apt repository for Kubernetes
-    apt_repository:
-      repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
-      state: present
-      filename: kubernetes
+    - name: Adding apt repository for Kubernetes
+      apt_repository:
+        repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+        state: present
+        filename: kubernetes
 
-  - name: Update apt and install Kubernetes binaries
-    apt:
-      name:
-        - kubelet
-        - kubeadm
-        - kubectl
-      state: present
-      update_cache: true
+    - name: Update apt and install Kubernetes binaries
+      apt:
+        name:
+          - kubelet
+          - kubeadm
+          - kubectl
+        state: present
+        update_cache: true
 
-  - name: Install minikube
-    get_url:
-      url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-      dest: /usr/local/bin/minikube
-      mode: 0755
+    - name: Install minikube
+      get_url:
+        url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+        dest: /usr/local/bin/minikube
+        mode: 0755

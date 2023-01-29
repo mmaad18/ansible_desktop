@@ -6,171 +6,171 @@
 
   tasks:
 
-  # Install Docker
+    # Install Docker
 
-  - name: Install aptitude
-    apt:
-      name: aptitude
-      state: latest
-      update_cache: true
+    - name: Install aptitude
+      apt:
+        name: aptitude
+        state: latest
+        update_cache: true
 
-  - name: Install required system packages
-    apt:
-      name:
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - gnupg-agent
-      - software-properties-common
-      - python3-pip
-      - virtualenv
-      - python3-setuptools
-      - gnupg
-      - lsb-release
-      - firewalld
-      - net-tools
-      state: latest
-      update_cache: true
+    - name: Install required system packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg-agent
+          - software-properties-common
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+          - gnupg
+          - lsb-release
+          - firewalld
+          - net-tools
+        state: latest
+        update_cache: true
 
-  # Open firewall ports 6443, 8080, 10250
+    # Open firewall ports 6443, 8080, 10250
 
-  - name: Open firewall ports 6443, 8080, 10250
-    firewalld:
-      port: 6443/tcp
-      permanent: true
-      immediate: true
-      state: enabled
+    - name: Open firewall ports 6443, 8080, 10250
+      firewalld:
+        port: 6443/tcp
+        permanent: true
+        immediate: true
+        state: enabled
 
-  - name: Add Docker GPG apt Key
-    apt_key:
-      url: https://download.docker.com/linux/ubuntu/gpg
-      state: present
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
 
-  - name: Add Docker Repository
-    apt_repository:
-      repo: deb https://download.docker.com/linux/ubuntu jammy stable
-      state: present
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu jammy stable
+        state: present
 
-  - name: Update apt and install docker tools
-    apt:
-      name:
-      - docker-ce
-      - docker-ce-cli
-      - containerd.io
-      - docker-compose-plugin
-      state: latest
-      update_cache: true
-    notify:
-    - docker status
+    - name: Update apt and install docker tools
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose-plugin
+        state: latest
+        update_cache: true
+      notify:
+        - docker status
 
-  - name: Add vagrant user to docker group
-    user:
-      name: vagrant
-      group: docker
+    - name: Add vagrant user to docker group
+      user:
+        name: vagrant
+        group: docker
 
-  # Remove swap
+    # Remove swap
 
-  - name: Remove swapfile from /etc/fstab
-    mount:
-      name: "{{ item }}"
-      fstype: swap
-      state: absent
-    with_items:
-    - swap
-    - none
+    - name: Remove swapfile from /etc/fstab
+      mount:
+        name: "{{ item }}"
+        fstype: swap
+        state: absent
+      with_items:
+        - swap
+        - none
 
-  - name: Disable swap
-    command: swapoff -a
-    when: ansible_swaptotal_mb > 0
+    - name: Disable swap
+      command: swapoff -a
+      when: ansible_swaptotal_mb > 0
 
-  # Install kubernetes tools
+    # Install kubernetes tools
 
-  - name: Add an apt signing key for Kubernetes
-    apt_key:
-      url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-      state: present
+    - name: Add an apt signing key for Kubernetes
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
 
-  - name: Adding apt repository for Kubernetes
-    apt_repository:
-      repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
-      state: present
-      filename: kubernetes
+    - name: Adding apt repository for Kubernetes
+      apt_repository:
+        repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+        state: present
+        filename: kubernetes
 
-  - name: Update apt and install Kubernetes binaries
-    apt:
-      name:
-      - kubelet
-      - kubeadm
-      - kubectl
-      state: present
-      update_cache: true
+    - name: Update apt and install Kubernetes binaries
+      apt:
+        name:
+          - kubelet
+          - kubeadm
+          - kubectl
+        state: present
+        update_cache: true
 
-  - name: Configure node ip
-    lineinfile:
-      path: /etc/default/kubelet
-      line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
-      create: true
+    - name: Configure node ip
+      lineinfile:
+        path: /etc/default/kubelet
+        line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
+        create: true
 
-  - name: Restart kubelet
-    service:
-      name: kubelet
-      daemon_reload: true
-      state: restarted
+    - name: Restart kubelet
+      service:
+        name: kubelet
+        daemon_reload: true
+        state: restarted
 
-  # Initialize Kubernetes cluster with kubeadm
+    # Initialize Kubernetes cluster with kubeadm
 
-  - name: Delete config.toml
-    file:
-      path: /etc/containerd/config.toml
-      state: absent
+    - name: Delete config.toml
+      file:
+        path: /etc/containerd/config.toml
+        state: absent
 
-  - name: Restart containerd
-    service:
-      name: containerd
-      state: restarted
+    - name: Restart containerd
+      service:
+        name: containerd
+        state: restarted
 
-  - name: Initialize the Kubernetes cluster using kubeadm
-    command: kubeadm init --apiserver-advertise-address="192.168.56.10" --apiserver-cert-extra-sans="192.168.56.10"  --node-name k8s-master --pod-network-cidr=192.168.0.0/16
+    - name: Initialize the Kubernetes cluster using kubeadm
+      command: kubeadm init --apiserver-advertise-address="192.168.56.10" --apiserver-cert-extra-sans="192.168.56.10"  --node-name k8s-master --pod-network-cidr=192.168.0.0/16
 
-  # Setup kube config file for vagrant user
+    # Setup kube config file for vagrant user
 
-  - name: Setup kubeconfig for vagrant user
-    command: "{{ item }}"
-    with_items:
-    - mkdir -p /home/vagrant/.kube
-    - cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
-    - chown vagrant:vagrant /home/vagrant/.kube/config
+    - name: Setup kubeconfig for vagrant user
+      command: "{{ item }}"
+      with_items:
+        - mkdir -p /home/vagrant/.kube
+        - cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
+        - chown vagrant:vagrant /home/vagrant/.kube/config
 
-  # Open firewall ports 6443, 8080, 10250
+    # Open firewall ports 6443, 8080, 10250
 
-  - name: Open firewall ports
-    firewalld:
-      port: 6443/tcp
-      permanent: true
-      immediate: true
-      state: enabled
+    - name: Open firewall ports
+      firewalld:
+        port: 6443/tcp
+        permanent: true
+        immediate: true
+        state: enabled
 
-  # Configure /etc/hosts file
-  - name: Configure /etc/hosts file
-    lineinfile:
-      path: /etc/hosts
-      line: 192.168.56.10 k8s-master k8s-master
-      create: true
+    # Configure /etc/hosts file
+    - name: Configure /etc/hosts file
+      lineinfile:
+        path: /etc/hosts
+        line: 192.168.56.10 k8s-master k8s-master
+        create: true
 
-  # Setup container networking provider (Calico)
+    # Setup container networking provider (Calico)
 
-  - name: Install calico pod network
-    become: false
-    command: kubectl create -f https://docs.projectcalico.org/v3.14/getting-started/kubernetes/installation/hosted/calico.yaml
+    - name: Install calico pod network
+      become: false
+      command: kubectl create -f https://docs.projectcalico.org/v3.14/getting-started/kubernetes/installation/hosted/calico.yaml
 
-  # Generate join command for worker nodes to join the cluster
+    # Generate join command for worker nodes to join the cluster
 
-  - name: Generate join command
-    command: kubeadm token create --print-join-command
-    register: join_command
+    - name: Generate join command
+      command: kubeadm token create --print-join-command
+      register: join_command
 
-  - name: Copy join command to local file
-    local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
+    - name: Copy join command to local file
+      local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
 
   # Setup a handler for checking docker daemon status
 

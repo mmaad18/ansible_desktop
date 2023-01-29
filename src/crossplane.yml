@@ -1,0 +1,39 @@
+---
+- hosts: localhost
+  connection: local
+  become: true
+
+  vars:
+    crossplane_version: 0.15.0
+    crossplane_arch: linux
+    crossplane_url: https://github.com/crossplane/crossplane/releases/download/v{{ crossplane_version }}/crossplane-{{ crossplane_version }}-{{ crossplane_arch }}.tar.gz
+
+  tasks:
+    - name: Install dependencies
+      apt:
+        name:
+          - curl
+          - unzip
+        update_cache: yes
+    - name: Download Crossplane binary
+      get_url:
+        url: "{{ crossplane_url }}"
+        dest: /tmp/crossplane.tar.gz
+    - name: Extract Crossplane binary
+      unarchive:
+        src: /tmp/crossplane.tar.gz
+        dest: /usr/local/bin
+        remote_src: true
+        creates: /usr/local/bin/crossplane
+    - name: Create Crossplane service
+      copy:
+        src: crossplane.service
+        dest: /etc/systemd/system
+        owner: root
+        group: root
+        mode: 0644
+    - name: Start Crossplane service
+      systemd:
+        name: crossplane
+        state: started
+        enabled: yes

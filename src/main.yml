@@ -15,3 +15,6 @@
 - name: Execute vagrant
   import_playbook: vagrant.yml
 
+- name: Execute crossplane
+  import_playbook: crossplane.yml
+
