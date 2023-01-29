@@ -15,6 +15,7 @@
           - virtualbox
           - firewalld
           - net-tools
+          - golang-go
 
     - name: copy wallpaper file
       copy:
