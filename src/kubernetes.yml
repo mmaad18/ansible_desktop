@@ -24,6 +24,10 @@
         state: present
         update_cache: true
 
+    - name: Install Kubernetes Module for Python
+      pip:
+        name: kubernetes
+
     - name: Install minikube
       get_url:
         url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
