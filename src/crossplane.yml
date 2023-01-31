@@ -6,8 +6,8 @@
     - kubernetes.core
 
   tasks:
-    - name: start minikube
-      command: minikube start
+#    - name: start minikube
+#      command: minikube start
 
     - name: Create Crossplane namespace
       k8s:
