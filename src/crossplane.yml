@@ -2,6 +2,8 @@
 - hosts: localhost
   connection: local
   become: true
+  collections:
+    - kubernetes.core
 
   tasks:
     - name: start minikube
