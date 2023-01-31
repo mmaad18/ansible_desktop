@@ -23,8 +23,3 @@
         state: latest
         update_cache: true
 
-    - name: Upgrade pip
-      command: pip3 install --upgrade pip
-
-    - name: Install ansible-galaxy
-      command: pip3 install ansible-galaxy
