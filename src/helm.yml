@@ -23,7 +23,8 @@
         state: latest
         update_cache: true
 
-    - name: Install ansible-galaxy collection kubernetes.core
-      ansible.builtin.ansible_galaxy:
-        name: kubernetes.core
-        state: present
+    - name: Upgrade pip
+      command: pip3 install --upgrade pip
+
+    - name: Install ansible-galaxy
+      command: pip3 install ansible-galaxy
