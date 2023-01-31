@@ -4,8 +4,8 @@
   become: true
 
   tasks:
-    - name: create kind cluster
-      command: kind create cluster --config kind-config.yml
+    #- name: create kind cluster
+    #  command: kind create cluster --config kind-config.yml
 
     - name: Create Crossplane namespace
       k8s:
