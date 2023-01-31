@@ -22,3 +22,8 @@
           - helm
         state: latest
         update_cache: true
+
+    - name: Install ansible-galaxy collection kubernetes.core
+      ansible.builtin.ansible_galaxy:
+        name: kubernetes.core
+        state: present
