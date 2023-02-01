@@ -3,6 +3,9 @@
 ### Get crossplane pods
     kubectl get pods -n crossplane-system
 
+### Apply spec.package to kubectl
+    kubectl apply -f spec.package
+
 ### Get proviers
     kubectl get providers
 
@@ -10,11 +13,6 @@
     kubectl get crds
 
 
-### Error messages
-
-**Delete all lists in `/etc/apt/sources.list.d/`**
-
-    Failed to update apt cache: unknown reason
 
 
 
