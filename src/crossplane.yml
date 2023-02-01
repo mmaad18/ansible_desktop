@@ -40,3 +40,6 @@
 
     - name: Install Crossplane CLI
       command: curl -sL https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh | sh
+
+    - name: Install GCP config
+      command: kubectl crossplane install configuration registry.upbound.io/xp/getting-started-with-gcp:v1.10.2
