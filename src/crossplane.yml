@@ -1,30 +1,17 @@
 ---
 - hosts: localhost
   connection: local
-  become: true
-  collections:
-    - kubernetes.core
+  become: false
+#  collections:
+#    - kubernetes.core
 
   tasks:
-    #    - name: start minikube
-    #      command: minikube start
-
-#    - name: Create crossplane namespace
-#      command: kubectl create namespace crossplane-system
-
-
 #    - name: Create Crossplane namespace
 #      k8s:
 #        api_version: v1
 #        kind: Namespace
 #        name: crossplane-system
 #        state: present
-
-    - name: Add a repository
-      kubernetes.core.helm_repository:
-        name: stable
-        repo_url: https://kubernetes.github.io/ingress-nginx
-
 
 #    - name: Add helm repo for crossplane
 #      kubernetes.core.helm_repository:
@@ -38,3 +25,15 @@
 #        namespace: crossplane-system
 #        state: present
 #        update_repo_cache: true
+
+    - name: Create crossplane namespace
+      command: kubectl create namespace crossplane-system
+
+    - name: Add helm repo for crossplane
+      command: helm repo add crossplane-stable https://charts.crossplane.io/stable
+
+    - name: Update helm repo
+      command: helm repo update
+
+    - name: Install Crossplane
+      command: helm install crossplane --namespace crossplane-system crossplane-stable/crossplane
