@@ -6,6 +6,6 @@
     metadata:
         name: upbound-provider-gcp
     spec:
-        package: xpkg.upbound.io/upbound/provider-gcp:v0.15.0
+        package: xpkg.upbound.io/upbound/provider-gcp:v0.26.0
     EOF
 
