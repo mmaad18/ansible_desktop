@@ -20,6 +20,12 @@
 #        name: crossplane-system
 #        state: present
 
+    - name: Add a repository
+      kubernetes.core.helm_repository:
+        name: stable
+        repo_url: https://kubernetes.github.io/ingress-nginx
+
+
     - name: Add helm repo for crossplane
       kubernetes.core.helm_repository:
         name: crossplane-stable
