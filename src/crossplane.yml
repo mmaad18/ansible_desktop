@@ -37,3 +37,6 @@
 
     - name: Install Crossplane
       command: helm install crossplane --namespace crossplane-system crossplane-stable/crossplane
+
+    - name: Install Crossplane CLI
+      command: curl -sL https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh | sh
