@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  connection: local
+  become: true
+
+  tasks:
+    - name: Install Kafka
+      command: helm install kafka --namespace kafka incubator/kafka

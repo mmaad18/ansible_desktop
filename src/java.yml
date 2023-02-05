@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  connection: local
+  become: true
+
+  tasks:
+    - name: Add Corretto GPG apt Key
+      apt_key:
+        url: https://apt.corretto.aws/corretto.key
+        state: present
+
+    - name: Add Corretto Repository
+      apt_repository:
+          repo: deb https://apt.corretto.aws stable main
+          state: present
+          filename: corretto-stable
+
+    - name: Install Java Corretto 17
+      apt:
+        name:
+        - java-17-amazon-corretto-jdk
+        state: latest
+        update_cache: true

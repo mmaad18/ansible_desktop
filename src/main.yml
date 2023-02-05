@@ -9,6 +9,9 @@
 - name: Execute helm
   import_playbook: helm.yml
 
+- name: Execute java
+  import_playbook: java.yml
+
 - name: Execute docker
   import_playbook: docker.yml
 
