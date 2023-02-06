@@ -121,3 +121,6 @@ fi
 
 # Custom Aliases
 alias kubectl="minikube kubectl --"
+
+# Path environment variables
+export PATH="$PATH:/opt/kafka_2.13-3.3.2/bin"
