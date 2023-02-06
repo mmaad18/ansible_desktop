@@ -1,4 +1,4 @@
-# Install the Google Cloud Platform (GCP) provider
+## Install the Google Cloud Platform (GCP) provider
 
     cat <<EOF | kubectl apply -f -
     apiVersion: pkg.crossplane.io/v1

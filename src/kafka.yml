@@ -17,6 +17,20 @@
         remote_src: yes
         mode: 0755
 
+#    - name: copy server.properties file
+#      replace:
+#        src: /home/yahya/ansible_desktop/files/server.properties
+#        dest: /opt/kafka_2.13-3.3.2/config/server.properties
+#        owner: yahya
+#        group: yahya
+#
+#    - name: copy zookeeper.properties file
+#      replace:
+#        src: /home/yahya/ansible_desktop/files/zookeeper.properties
+#        dest: /opt/kafka_2.13-3.3.2/config/zookeeper.properties
+#        owner: yahya
+#        group: yahya
+
 #    - name: Start zookeeper
 #      shell: /opt/kafka_2.13-3.3.2/bin/zookeeper-server-start.sh -daemon /opt/kafka_2.13-3.3.2/config/zookeeper.properties
 #
