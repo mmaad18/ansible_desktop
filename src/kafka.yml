@@ -4,5 +4,18 @@
   become: true
 
   tasks:
-    - name: Install Kafka
-      command: helm install kafka --namespace kafka incubator/kafka
+    - name: Download Kafka
+      get_url:
+        url: https://downloads.apache.org/kafka/3.3.2/kafka_2.13-3.3.2.tgz
+        dest: /tmp/kafka_2.13-3.3.2.tgz
+        mode: 0755
+
+    - name: Extract Kafka
+      unarchive:
+        src: /tmp/kafka_2.13-3.3.2.tgz
+        dest: /opt
+        remote_src: yes
+        mode: 0755
+
+    - name: Start zookeeper
+      shell: /opt/kafka_2.13-3.3.2/bin/zookeeper-server-start.sh -daemon /opt/kafka_2.13-3.3.2/config/zookeeper.properties
