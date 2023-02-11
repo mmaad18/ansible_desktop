@@ -46,7 +46,6 @@
           - docker-ce-cli
           - containerd.io
           - docker-compose-plugin
-          - docker-desktop
         state: latest
         update_cache: true
 
@@ -66,4 +65,10 @@
         command: "{{ default_container_command }}"
         state: present
       with_sequence: count={{ container_count }}
+
+    - name: Install Docker Desktop for ubuntu
+      shell: |
+          curl -fsSL https://get.docker.com -o get-docker.sh
+          sh get-docker.sh
+
 
