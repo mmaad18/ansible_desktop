@@ -66,4 +66,15 @@
         state: present
       with_sequence: count={{ container_count }}
 
+    - name: Download docker desktop for ubuntu
+      get_url:
+        url: https://desktop.docker.com/linux/main/amd64/docker-desktop-4.16.2-amd64.deb
+        dest: /home/yahya/Downloads/docker-desktop-4.16.2-amd64.deb
+
+    - name: Install docker desktop for ubuntu
+      apt:
+        deb: /home/yahya/Downloads/docker-desktop-4.16.2-amd64.deb
+        state: present
+        update_cache: true
+
 
