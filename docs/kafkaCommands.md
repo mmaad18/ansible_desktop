@@ -30,3 +30,22 @@
     
     kafka-topics.sh --bootstrap-server localhost:9092
 
+### Create playground.config file with content such as
+
+    security.protocol=SASL_SSL
+    sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username="<your username>" password="<your password>";
+    sasl.mechanism=PLAIN
+
+
+### Create topic
+
+    kafka-topics.sh --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --create --topic second_topic --partitions 5 --replication-factor 3 
+
+
+### List topics
+
+    kafka-topics.sh --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --list
+
+
+
+
