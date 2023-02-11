@@ -66,9 +66,4 @@
         state: present
       with_sequence: count={{ container_count }}
 
-    - name: Install Docker Desktop for ubuntu
-      shell: |
-          curl -fsSL https://get.docker.com -o get-docker.sh
-          sh get-docker.sh
-
 
