@@ -1,3 +1,2 @@
-- hosts: localhost
-  vars:
-    intellij_version: 202.7319.61
+---
+intellij_version: 202.7319.61
