@@ -1,3 +1,26 @@
+- name: add cassandra gpg key
+  apt_key:
+    url: https://www.apache.org/dist/cassandra/KEYS
+    state: present
+
+- name: add cassandra repository
+  apt_repository:
+    repo: deb https://www.apache.org/dist/cassandra/debian 311x main
+    state: present
+    filename: cassandra-311x
+
+- name: update apt and install cassandra packages
+  apt:
+    name:
+      - cassandra
+    state: latest
+    update_cache: true
+
+- name: restart cassandra
+  service:
+    name: cassandra
+    state: restarted
+
 - name: install cassandra
   apt:
     name:
