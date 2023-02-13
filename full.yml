@@ -18,7 +18,7 @@
     - java
     - docker
     - kubernetes
-    - crossplane
+#    - crossplane
     - vagrant
     - kafka
     - cassandra
