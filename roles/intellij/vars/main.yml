@@ -1,0 +1,3 @@
+- hosts: app_servers
+  vars:
+    intellij_version: 202.7319.61

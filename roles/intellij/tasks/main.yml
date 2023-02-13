@@ -1,18 +1,23 @@
 - name: Download IntelliJ IDEA Community Edition
   get_url:
-    url: https://download.jetbrains.com/idea/ideaIC-2022.3.2.tar.gz
+    url: https://download.jetbrains.com/idea/ideaIC-{{ intellij_version }}.tar.gz
     dest: /tmp/ideaIC-{{ intellij_version }}.tar.gz
   register: download_result
 
 - name: Extract IntelliJ IDEA Community Edition
   unarchive:
-    src: /tmp/ideaIC-2022.3.2.tar.gz
+    src: /tmp/ideaIC-{{ intellij_version }}.tar.gz
     dest: /opt/
     remote_src: yes
   when: download_result is changed
 
 - name: Create a symbolic link
   file:
-    src: /opt/idea-IC-2022.3.2
+    src: /opt/idea-IC-{{ intellij_version }}
     dest: /opt/intellij
     state: link
+
+- name: Create a desktop shortcut
+  copy:
+    src: files/intellij.desktop
+    dest: /usr/share/applications/intellij.desktop
