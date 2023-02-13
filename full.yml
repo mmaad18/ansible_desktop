@@ -13,8 +13,8 @@
   - name: copy ansible host file
     tags: always
     copy:
+      src: hosts
       dest: /etc/ansible/hosts
-      content: hosts
 
 - hosts: localhost
   become: true
