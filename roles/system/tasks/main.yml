@@ -15,7 +15,7 @@
 
 - name: copy wallpaper file
   copy:
-    src: /home/yahya/ansible_desktop/files/terraform.png
+    src: terraform.png
     dest: /usr/share/backgrounds/wallpaper.png
     owner: root
     group: root

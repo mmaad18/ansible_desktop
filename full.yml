@@ -1,6 +1,6 @@
 ---
 
-- hosts: local
+- hosts: localhost
   become: true
   pre_tasks:
   - name: update repository index (Ubuntu)
@@ -9,6 +9,12 @@
       update_cache: yes
     changed_when: false
     when: ansible_distribution == "Ubuntu"
+
+  - name: copy ansible host file
+    tags: always
+    copy:
+      dest: /etc/ansible/hosts
+      content: hosts
 
 - hosts: local
   become: true
