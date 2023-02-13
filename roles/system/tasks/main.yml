@@ -34,7 +34,7 @@
 
 - name: copy .bashrc file
   copy:
-    src: /home/yahya/ansible_desktop/files/.bashrc
+    src: .bashrc
     dest: /home/yahya/.bashrc
     owner: yahya
     group: yahya
