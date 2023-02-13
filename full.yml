@@ -16,7 +16,7 @@
       dest: /etc/ansible/hosts
       content: hosts
 
-- hosts: local
+- hosts: localhost
   become: true
   roles:
     - system
