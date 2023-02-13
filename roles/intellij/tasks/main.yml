@@ -19,5 +19,5 @@
 
 - name: Create a desktop shortcut
   copy:
-    src: files/intellij.desktop
+    src: intellij.desktop
     dest: /usr/share/applications/intellij.desktop
