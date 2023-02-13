@@ -1,0 +1,16 @@
+- name: Add Vagrant GPG apt Key
+  apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+    state: present
+
+- name: Add Vagrant Repository
+  apt_repository:
+    repo: deb https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
+    state: present
+    filename: hashicorp
+
+- name: Update apt and install vagrant
+  apt:
+    name: vagrant
+    state: latest
+    update_cache: true

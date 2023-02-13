@@ -37,6 +37,8 @@
     sasl.mechanism=PLAIN
 
 
+**Remember to change into the .kafka-config directory before using playground.config**
+
 ### Create topic
 
     kafka-topics.sh --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --create --topic second_topic --partitions 5 --replication-factor 3 

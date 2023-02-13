@@ -1,0 +1,67 @@
+- name: Install aptitude
+  apt:
+    name: aptitude
+    state: latest
+    update_cache: true
+
+- name: Install required system packages
+  apt:
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - python3-pip
+      - virtualenv
+      - python3-setuptools
+    state: latest
+    update_cache: true
+
+- name: Add Docker GPG apt Key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu jammy stable
+    state: present
+
+- name: Update apt and install docker packages
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin
+    state: latest
+    update_cache: true
+
+- name: Install Docker Module for Python
+  pip:
+    name: docker
+
+- name: Pull default Docker image
+  community.docker.docker_image:
+    name: ubuntu
+    source: pull
+
+- name: Create default containers
+  community.docker.docker_container:
+    name: "docker{{ item }}"
+    image: ubuntu
+    command: sleep 1
+    state: present
+  with_sequence: count=4
+
+- name: Download docker desktop for ubuntu
+  get_url:
+    url: https://desktop.docker.com/linux/main/amd64/docker-desktop-4.16.2-amd64.deb
+    dest: /home/yahya/Downloads/docker-desktop-4.16.2-amd64.deb
+
+- name: Install docker desktop for ubuntu
+  apt:
+    deb: /home/yahya/Downloads/docker-desktop-4.16.2-amd64.deb
+    state: present
+    update_cache: true
+

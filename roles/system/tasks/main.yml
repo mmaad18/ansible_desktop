@@ -1,0 +1,54 @@
+- name: install base packages
+  apt:
+    name:
+      - htop
+      - tmux
+      - vim
+      - vim-nox
+      - python3-psutil
+      - virtualbox
+      - firewalld
+      - net-tools
+      - golang-go
+    state: latest
+    update_cache: true
+
+- name: copy wallpaper file
+  copy:
+    src: /home/yahya/ansible_desktop/files/terraform.png
+    dest: /usr/share/backgrounds/wallpaper.png
+    owner: root
+    group: root
+
+- name: set wallpaper
+  become_user: yahya
+  dconf:
+    key: "/org/gnome/desktop/background/picture-uri"
+    value: "'file:///usr/share/backgrounds/wallpaper.png'"
+
+- name: set wallpaper position
+  become_user: yahya
+  dconf:
+    key: "/org/gnome/desktop/background/picture-options"
+    value: "'centered'"
+
+- name: copy .bashrc file
+  copy:
+    src: /home/yahya/ansible_desktop/files/.bashrc
+    dest: /home/yahya/.bashrc
+    owner: yahya
+    group: yahya
+
+- name: Remove swapfile from /etc/fstab
+  mount:
+    name: "{{ item }}"
+    fstype: swap
+    state: absent
+  with_items:
+    - swap
+    - none
+
+- name: Disable swap
+  command: swapoff -a
+  when: ansible_swaptotal_mb > 0
+
