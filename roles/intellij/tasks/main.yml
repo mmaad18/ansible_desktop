@@ -13,7 +13,7 @@
 
 - name: Create a symbolic link
   file:
-    src: /opt/idea-IC-{{ intellij_version }}
+    src: /opt/idea-IC-{{ intellij_build }}
     dest: /opt/intellij
     state: link
 
