@@ -1,19 +1,19 @@
 - name: Download IntelliJ IDEA Community Edition
   get_url:
-    url: https://download.jetbrains.com/idea/ideaIC-{{ intellij_version }}.tar.gz
+    url: https://download.jetbrains.com/idea/ideaIU-{{ intellij_version }}.tar.gz
     dest: /tmp/ideaIC-{{ intellij_version }}.tar.gz
   register: download_result
 
 - name: Extract IntelliJ IDEA Community Edition
   unarchive:
-    src: /tmp/ideaIC-{{ intellij_version }}.tar.gz
+    src: /tmp/ideaIU-{{ intellij_version }}.tar.gz
     dest: /opt/
     remote_src: yes
   when: download_result is changed
 
 - name: Create a symbolic link
   file:
-    src: /opt/idea-IC-{{ intellij_build }}
+    src: /opt/idea-IU-{{ intellij_build }}
     dest: /opt/intellij
     state: link
 
