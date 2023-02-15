@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=CLion
-Exec=/opt/CLion/bin/clion.sh
-Icon=/opt/CLion/bin/clion.png
+Exec=/opt/clion/bin/clion.sh
+Icon=/opt/clion/bin/clion.png
 Terminal=false
 Type=Application
 Categories=Development;IDE;
