@@ -28,4 +28,5 @@
 #    - vagrant
 #    - kafka
 #    - cassandra
-    - intellij
+#    - intellij
+    - clion
