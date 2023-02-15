@@ -1,0 +1,9 @@
+- name: Download rustup installer
+  command: curl https://sh.rustup.rs -sSf | sh -s -- -y
+
+- name: Add rustup to PATH
+  lineinfile:
+    path: /etc/environment
+    line: 'PATH="/root/.cargo/bin:$PATH"'
+  notify:
+    - source environment file
