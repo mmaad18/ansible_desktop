@@ -2,6 +2,25 @@
 
 ## Setup a development environment on a fresh Ubuntu 22.04 install.
 
+**WIP:** *Crossplane installation doesn't work yet*
+
+### What it installs (in order)
+
+- git
+- curl
+- ansible
+- helm
+- java
+- docker
+- kubernetes
+- ~~crossplane~~
+- vagrant
+- kafka
+- cassandra
+- intellij
+- clion
+- rust
+
 ### Get initial setup file and run it
     wget https://raw.githubusercontent.com/mmaad18/ansible_desktop/initialSetup.sh
     . initialSetup.sh
