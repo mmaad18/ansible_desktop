@@ -1,6 +1,6 @@
 - name: Install rustup
   shell: |
-    curl https://sh.rustup.rs -sSf | sh
+    curl https://sh.rustup.rs -sSf | sh -y
     source $HOME/.cargo/env
   environment:
     PATH: "{{ ansible_env.PATH }}:/root/.cargo/bin"
