@@ -1,4 +1,8 @@
+- name: Determine kernel version
+  shell: uname -r
+  register: kernel_version
+
 - name: Install linux-tools package
   apt:
-    name: linux-tools-`uname -r`
+    name: linux-tools-{{ kernel_version.stdout }}
     state: present
