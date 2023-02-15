@@ -1,10 +1,10 @@
-- name: Download IntelliJ IDEA Community Edition
+- name: Download IntelliJ IDEA Ultimate Edition
   get_url:
     url: https://download.jetbrains.com/idea/ideaIU-{{ intellij_version }}.tar.gz
-    dest: /tmp/ideaIC-{{ intellij_version }}.tar.gz
+    dest: /tmp/ideaIU-{{ intellij_version }}.tar.gz
   register: download_result
 
-- name: Extract IntelliJ IDEA Community Edition
+- name: Extract IntelliJ IDEA Ultimate Edition
   unarchive:
     src: /tmp/ideaIU-{{ intellij_version }}.tar.gz
     dest: /opt/
