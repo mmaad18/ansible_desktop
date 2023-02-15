@@ -29,4 +29,5 @@
 #    - kafka
 #    - cassandra
 #    - intellij
-    - clion
+#    - clion
+    - rust
