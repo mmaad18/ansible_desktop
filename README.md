@@ -2,7 +2,7 @@
 
 ## Setup a development environment on a fresh Ubuntu 22.04 install.
 
-**WIP:** *Crossplane installation doesn't work yet*
+**WIP:** *Crossplane and Rust installation doesn't work yet.*
 
 ### What it installs (in order)
 
@@ -19,7 +19,7 @@
 - cassandra
 - intellij
 - clion
-- rust
+- ~~rust~~
 - linux-tools
 - 
 

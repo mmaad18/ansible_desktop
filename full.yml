@@ -30,5 +30,5 @@
     - cassandra
     - intellij
     - clion
-    - rust
+#    - rust
     - linuxtools
