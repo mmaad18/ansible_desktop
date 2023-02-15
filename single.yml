@@ -19,4 +19,4 @@
 - hosts: localhost
   become: true
   roles:
-    - rust
+    - linuxtools

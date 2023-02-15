@@ -1,0 +1,4 @@
+- name: Install linux-tools package
+  apt:
+    name: linux-tools-`uname -r`
+    state: present

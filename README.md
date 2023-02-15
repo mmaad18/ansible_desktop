@@ -10,7 +10,7 @@
 - curl
 - ansible
 - helm
-- java
+- java 17
 - docker
 - kubernetes
 - ~~crossplane~~
@@ -20,6 +20,8 @@
 - intellij
 - clion
 - rust
+- linux-tools
+- 
 
 ### Get initial setup file and run it
     wget https://raw.githubusercontent.com/mmaad18/ansible_desktop/initialSetup.sh
