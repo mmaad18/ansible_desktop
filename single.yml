@@ -19,15 +19,4 @@
 - hosts: localhost
   become: true
   roles:
-    - system
-    - helm
-    - java
-    - docker
-    - kubernetes
-    - crossplane
-    - vagrant
-    - kafka
-    - cassandra
-    - intellij
-    - clion
     - rust

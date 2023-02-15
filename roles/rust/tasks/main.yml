@@ -1,5 +1,5 @@
 - name: Download rustup installer
-  command: curl https://sh.rustup.rs -sSf | sh -s -- -y
+  command: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 - name: Add rustup to PATH
   lineinfile:

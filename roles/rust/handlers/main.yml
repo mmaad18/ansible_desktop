@@ -1,3 +1,0 @@
-- name: source environment file
-  shell: source /etc/environment
-  tags: always
