@@ -13,7 +13,7 @@
 
 - name: Create a symbolic link
   file:
-    src: /opt/CLion-{{ clion_version }}
+    src: /opt/clion-{{ clion_version }}
     dest: /opt/clion
     state: link
 
