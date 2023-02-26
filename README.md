@@ -17,6 +17,7 @@
 - vagrant
 - kafka
 - cassandra
+- postgresql
 - intellij
 - clion
 - ~~rust~~
