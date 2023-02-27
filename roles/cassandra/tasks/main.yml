@@ -21,10 +21,4 @@
     name: cassandra
     state: restarted
 
-- name: install cassandra
-  apt:
-    name:
-      - cassandra
-    state: latest
-    update_cache: true
 

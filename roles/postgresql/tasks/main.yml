@@ -1,3 +1,14 @@
+- name: add postgresql gpg key
+  apt_key:
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    state: present
+
+- name: add postgresql repository
+  apt_repository:
+    repo: deb http://apt.postgresql.org/pub/repos/apt jammy-pgdg main
+    state: present
+    filename: pgdg
+
 - name: Install postgresql
   apt:
     name:
@@ -6,3 +17,34 @@
     state: latest
     update_cache: true
   tags: always
+
+- name: restart postgresql
+  service:
+    name: postgresql
+    state: restarted
+
+- name: "Create app database"
+  postgresql_db:
+    state: present
+    name: "{{ db_name }}"
+  become: yes
+  become_user: postgres
+
+- name: "Create db user"
+  postgresql_user:
+    state: present
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+  become: yes
+  become_user: postgres
+
+- name: "Grant db user access to app db"
+  postgresql_privs:
+    type: database
+    database: "{{ db_name }}"
+    roles: "{{ db_user }}"
+    grant_option: no
+    privs: all
+  become: yes
+  become_user: postgres
+
