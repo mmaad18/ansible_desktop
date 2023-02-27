@@ -9,6 +9,11 @@
     state: present
     filename: pgdg
 
+- name: "Install Python packages"
+  pip: "name={{ item }}  state=present"
+  with_items:
+    - psycopg2-binary
+
 - name: Install postgresql
   apt:
     name:
