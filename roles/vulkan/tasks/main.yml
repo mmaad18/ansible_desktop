@@ -36,6 +36,15 @@
   when: "'Intel' in gpu_vendor.stdout"
   become: true
 
+- name: Install Vulkan drivers for VMware
+  ansible.builtin.apt:
+    name:
+      - mesa-vulkan-drivers
+      - libvulkan1
+    state: present
+  when: "'VMware' in gpu_vendor.stdout"
+  become: true
+
 - name: Install Vulkan tools
   ansible.builtin.apt:
     name:
