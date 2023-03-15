@@ -1,16 +1,16 @@
 - name: Install required packages
-  ansible.builtin.apt:
+  apt:
     name:
       - lshw
     state: present
   become: true
 
 - name: Gather GPU information
-  ansible.builtin.shell: lshw -C display | grep vendor
+  shell: lshw -C display | grep vendor
   register: gpu_vendor
 
 - name: Install NVIDIA Vulkan drivers
-  ansible.builtin.apt:
+  apt:
     name:
       - nvidia-driver-510
       - libvulkan1
@@ -19,7 +19,7 @@
   become: true
 
 - name: Install AMD Vulkan drivers
-  ansible.builtin.apt:
+  apt:
     name:
       - mesa-vulkan-drivers
       - libvulkan1
@@ -28,7 +28,7 @@
   become: true
 
 - name: Install Intel Vulkan drivers
-  ansible.builtin.apt:
+  apt:
     name:
       - mesa-vulkan-drivers
       - libvulkan1
@@ -37,7 +37,7 @@
   become: true
 
 - name: Install Vulkan drivers for VMware
-  ansible.builtin.apt:
+  apt:
     name:
       - mesa-vulkan-drivers
       - libvulkan1
@@ -46,8 +46,26 @@
   become: true
 
 - name: Install Vulkan tools
-  ansible.builtin.apt:
+  apt:
     name:
       - vulkan-tools
     state: present
+  become: true
+
+- name: add vulkan gpg key
+  builtin.apt_key:
+    url: https://packages.lunarg.com/lunarg-signing-key-pub.asc
+    state: present
+
+- name: add vulkan repository
+  apt_repository:
+    repo: deb https://packages.lunarg.com/vulkan/1.2.182/lunarg-vulkan-1.2.182-bionic.deb
+    state: present
+    filename: lunarg-vulkan-jammy
+
+- name: Install Vulkan SDK
+  apt:
+      name:
+      - vulkan-sdk
+      state: present
   become: true
