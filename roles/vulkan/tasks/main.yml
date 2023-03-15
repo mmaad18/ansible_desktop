@@ -52,20 +52,29 @@
     state: present
   become: true
 
-- name: add vulkan gpg key
-  apt_key:
-    url: https://packages.lunarg.com/lunarg-signing-key-pub.asc
-    state: present
-
-- name: add vulkan repository
-  apt_repository:
-    repo: deb https://packages.lunarg.com/vulkan/1.2.182/lunarg-vulkan-1.2.182-bionic.deb
-    state: present
-    filename: lunarg-vulkan-jammy
-
-- name: Install Vulkan SDK
+- name: Install required packages
   apt:
-      name:
+    name:
+      - gnupg2
+      - software-properties-common
+    state: present
+  become: true
+
+- name: Add LunarG repository key
+  apt_key:
+    url: "https://packages.lunarg.com/lunarg-signing-key-pub.asc"
+  become: true
+
+- name: Add LunarG repository
+  apt_repository:
+    repo: "deb https://packages.lunarg.com/vulkan/$(lsb_release -sc) main"
+    state: present
+  become: true
+
+- name: Update apt cache and install Vulkan SDK
+  apt:
+    name:
       - vulkan-sdk
-      state: present
+    update_cache: true
+    state: present
   become: true
