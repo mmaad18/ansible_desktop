@@ -16,6 +16,11 @@
       src: hosts
       dest: /etc/ansible/hosts
 
+- hosts: all
+  gather_facts: true
+  roles:
+    - removebloat
+
 - hosts: localhost
   become: true
   roles:
@@ -33,3 +38,4 @@
     - clion
 #    - rust
     - linuxtools
+

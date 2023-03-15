@@ -4,6 +4,46 @@
 
 **WIP:** *Crossplane and Rust installation doesn't work yet.*
 
+### Begins by removing bloatware
+
+**Games:**
+- aisleriot
+- gnome-mahjongg
+- gnome-mines
+- gnome-sudoku
+
+**Office:**
+- libreoffice-core
+- libreoffice-common
+- libreoffice-help-en-us
+- libreoffice-l10n-en-gb
+
+**Media:**
+- cheese
+- rhythmbox
+- totem
+- shotwell
+
+**Messaging:**
+- empathy
+- thunderbird
+
+**Accessories:**
+- gnome-calendar
+- gnome-contacts
+- gnome-maps
+- gnome-weather
+- remmina
+- simple-scan
+- transmission-gtk
+
+**Additional services and tools:**
+- popularity-contest
+- zeitgeist-core
+- zeitgeist-datahub
+- usb-creator-gtk
+
+
 ### What it installs (in order)
 
 - git

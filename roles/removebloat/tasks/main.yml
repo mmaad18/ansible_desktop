@@ -1,0 +1,7 @@
+- name: Remove bloat software packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: absent
+  loop: "{{ bloat_packages }}"
+  become: yes
+
