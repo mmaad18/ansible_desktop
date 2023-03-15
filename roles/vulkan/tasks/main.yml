@@ -53,7 +53,7 @@
   become: true
 
 - name: add vulkan gpg key
-  builtin.apt_key:
+  apt_key:
     url: https://packages.lunarg.com/lunarg-signing-key-pub.asc
     state: present
 
