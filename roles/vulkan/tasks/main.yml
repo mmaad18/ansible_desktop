@@ -35,3 +35,10 @@
     state: present
   when: "'Intel' in gpu_vendor.stdout"
   become: true
+
+- name: Install Vulkan tools
+  ansible.builtin.apt:
+    name:
+      - vulkan-tools
+    state: present
+  become: true

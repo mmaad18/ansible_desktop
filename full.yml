@@ -22,7 +22,7 @@
   roles:
     - removebloat
 
-- hosts: localhost
+- hosts: all
   become: true
   roles:
     - system
