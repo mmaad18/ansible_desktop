@@ -52,6 +52,11 @@
     state: present
   become: true
 
+- name: Get Ubuntu codename
+  command: lsb_release -sc
+  register: ubuntu_codename
+  changed_when: False
+
 - name: Install required packages
   apt:
     name:
@@ -67,7 +72,7 @@
 
 - name: Add LunarG repository
   apt_repository:
-    repo: "deb https://packages.lunarg.com/vulkan/{{ ansible_distribution_release }} main"
+    repo: "deb https://packages.lunarg.com/vulkan/{{ ubuntu_codename.stdout }} main"
     state: present
   become: true
 
