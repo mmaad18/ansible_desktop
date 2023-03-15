@@ -21,6 +21,7 @@
   gather_facts: true
   roles:
     - removebloat
+    - logging
 
 - hosts: all
   become: true

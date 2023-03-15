@@ -43,6 +43,10 @@
 - zeitgeist-datahub
 - usb-creator-gtk
 
+**It will then turn off the following services used for logging:**
+
+- whoopsie
+- apport
 
 ## What it installs (in order)
 
