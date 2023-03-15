@@ -17,6 +17,7 @@
       dest: /etc/ansible/hosts
 
 - hosts: all
+  become: true
   gather_facts: true
   roles:
     - removebloat

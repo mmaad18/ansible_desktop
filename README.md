@@ -4,7 +4,7 @@
 
 **WIP:** *Crossplane and Rust installation doesn't work yet.*
 
-### Begins by removing bloatware
+## Begins by removing bloatware
 
 **Games:**
 - aisleriot
@@ -44,7 +44,7 @@
 - usb-creator-gtk
 
 
-### What it installs (in order)
+## What it installs (in order)
 
 - git
 - curl
