@@ -67,7 +67,7 @@
 
 - name: Add LunarG repository
   apt_repository:
-    repo: "deb https://packages.lunarg.com/vulkan/$(lsb_release -sc) main"
+    repo: "deb https://packages.lunarg.com/vulkan/{{ ansible_distribution_release }} main"
     state: present
   become: true
 
