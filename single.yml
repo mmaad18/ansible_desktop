@@ -20,4 +20,4 @@
   become: true
   gather_facts: true
   roles:
-    - removebloat
+    - vulkan

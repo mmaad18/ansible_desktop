@@ -1,0 +1,37 @@
+- name: Install required packages
+  ansible.builtin.apt:
+    name:
+      - lshw
+    state: present
+  become: true
+
+- name: Gather GPU information
+  ansible.builtin.shell: lshw -C display | grep vendor
+  register: gpu_vendor
+
+- name: Install NVIDIA Vulkan drivers
+  ansible.builtin.apt:
+    name:
+      - nvidia-driver-510
+      - libvulkan1
+    state: present
+  when: "'NVIDIA' in gpu_vendor.stdout"
+  become: true
+
+- name: Install AMD Vulkan drivers
+  ansible.builtin.apt:
+    name:
+      - mesa-vulkan-drivers
+      - libvulkan1
+    state: present
+  when: "'AMD' in gpu_vendor.stdout"
+  become: true
+
+- name: Install Intel Vulkan drivers
+  ansible.builtin.apt:
+    name:
+      - mesa-vulkan-drivers
+      - libvulkan1
+    state: present
+  when: "'Intel' in gpu_vendor.stdout"
+  become: true

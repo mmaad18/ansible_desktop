@@ -62,7 +62,7 @@
 - clion
 - ~~rust~~
 - linux-tools
-- 
+- vulkan 
 
 ### Get initial setup file and run it
     wget https://raw.githubusercontent.com/mmaad18/ansible_desktop/initialSetup.sh
