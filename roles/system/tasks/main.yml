@@ -61,3 +61,16 @@
     regexp: '^#?(xserver-command=).*'
     line: 'xserver-command=X -s 0 dpms 30 0'
 
+- name: Set the hostname
+  hostname:
+    name: "ubuntu"
+  become: true
+
+- name: Add localhost and hostname to /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    regexp: '^127.0.1.1'
+    line: '127.0.1.1       localhost ubuntu'
+    state: present
+  become: true
+
