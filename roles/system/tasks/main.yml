@@ -53,10 +53,9 @@
   when: ansible_swaptotal_mb > 0
 
 - name: Set blank screen timeout for GNOME
-  ansible.builtin.command:
+  command:
     cmd: gsettings set org.gnome.desktop.session idle-delay 1800
-  when: "'gnome' in ansible_facts['desktop']"
-  become_user: "{{ ansible_user }}"
+  become: true
 
 - name: Set the hostname
   hostname:
