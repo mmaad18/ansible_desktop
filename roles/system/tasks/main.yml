@@ -21,13 +21,13 @@
     group: root
 
 - name: set wallpaper
-  become_user: yahya
+  become_user: all
   dconf:
     key: "/org/gnome/desktop/background/picture-uri"
     value: "'file:///usr/share/backgrounds/wallpaper.png'"
 
 - name: set wallpaper position
-  become_user: yahya
+  become_user: all
   dconf:
     key: "/org/gnome/desktop/background/picture-options"
     value: "'centered'"
@@ -52,14 +52,11 @@
   command: swapoff -a
   when: ansible_swaptotal_mb > 0
 
-- name: Set blank screen to 30 minutes
-  become: yes
-  become_user: root
-  lineinfile:
-    path: /etc/lightdm/lightdm.conf
-    state: present
-    regexp: '^#?(xserver-command=).*'
-    line: 'xserver-command=X -s 0 dpms 30 0'
+- name: Set blank screen timeout for GNOME
+  ansible.builtin.command:
+    cmd: gsettings set org.gnome.desktop.session idle-delay 1800
+  when: "'gnome' in ansible_facts['desktop']"
+  become_user: "{{ ansible_user }}"
 
 - name: Set the hostname
   hostname:
