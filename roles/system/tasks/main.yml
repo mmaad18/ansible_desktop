@@ -10,6 +10,7 @@
       - firewalld
       - net-tools
       - golang-go
+      - openssh-server
     state: latest
     update_cache: true
 
