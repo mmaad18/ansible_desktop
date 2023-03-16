@@ -67,12 +67,12 @@
 
 - name: Add LunarG repository key
   apt_key:
-    url: "https://packages.lunarg.com/lunarg-signing-key-pub.asc"
+    url: https://packages.lunarg.com/lunarg-signing-key-pub.asc
   become: true
 
 - name: Add LunarG repository
   apt_repository:
-    repo: "deb https://packages.lunarg.com/vulkan/{{ ubuntu_codename.stdout }} main"
+    repo: deb https://packages.lunarg.com/vulkan/{{ ubuntu_codename.stdout }} main
     state: present
   become: true
 
