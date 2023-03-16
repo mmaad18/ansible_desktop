@@ -1,12 +1,12 @@
 - name: Stop and disable whoopsie service
-  ansible.builtin.systemd:
+  systemd:
     name: whoopsie
     state: stopped
     enabled: no
   become: true
 
 - name: Disable apport error reporting
-  ansible.builtin.replace:
+  replace:
     path: /etc/default/apport
     regexp: '^(enabled=)1'
     replace: '\g<1>0'
